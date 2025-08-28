@@ -1,0 +1,7 @@
+## <%-desc.severityLevels[type] %> Vulnerability
+
+Total **<%- audit.summary[type] %>**
+
+<% audit.vulnerabilities[type].forEach(function(item){ %>
+<%- include('./detail-item.ejs', {item: item}) %>
+<% }); %>

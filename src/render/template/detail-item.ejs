@@ -1,0 +1,32 @@
+### `<%- item.name -%>`
+
+**Vulnerability Description**：
+<% item.problems.forEach((problem) => { %>
+- <%- problem.title %>
+  - npm Vulnerability ID：`<%- problem.source %>`
+  - Vulnerability Details：<%- problem.url %>
+  - Vulnerability Level：<%- desc.severityLevels[problem.severity] %>
+  - Affected Versions：`<%- problem.range %>`
+<% }); %>
+
+**Dependency Relationship**：
+<% if(item.depChains.length === 0) { %>
+<% if(item.name === packageJson.name) { %>
+Current Project
+<% } else { %>
+- `<%- packageJson.name %>` / <%- item.name %>
+<% } %>
+<% } else { %>
+<% item.depChains.forEach((chain) => { %>
+<% if(chain.length === 1 && chain[0] === packageJson.name) { %>
+Current Project
+<% } else { %>
+- `<%- packageJson.name %>` / <%- chain.map(c=>`\`${c}\``).join(' / ') %>
+<% } %>
+  <% }); %>
+  <% } %>
+
+**Vulnerable Package Directory**：
+<% item.nodes.forEach((path) => { %>
+- `<%- path %>`
+<% }); %>

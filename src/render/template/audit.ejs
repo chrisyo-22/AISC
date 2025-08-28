@@ -1,0 +1,30 @@
+The project you audited has **<%- audit.summary.total %>** risk vulnerabilities.
+
+There are:
+
+- **<%- desc.severityLevels.critical %> Vulnerability**：**<%- audit.summary.critical %>**
+- **<%- desc.severityLevels.high %> Vulnerability**：**<%- audit.summary.high %>**
+- **<%- desc.severityLevels.moderate %> Vulnerability**：**<%- audit.summary.moderate %>**
+- **<%- desc.severityLevels.low %> Vulnerability**：**<%- audit.summary.low %>**
+
+> Note:
+>
+> - **<%- desc.severityLevels.critical %>** Vulnerability is considered extremely serious and should be fixed immediately.
+> - **<%- desc.severityLevels.high %>** Vulnerability is considered serious and should be fixed as soon as possible.
+> - **<%- desc.severityLevels.moderate %>** Vulnerability is considered moderately serious and can be fixed when time allows.
+> - **<%- desc.severityLevels.low %>** Vulnerability is considered minor and can be fixed according to personal needs.
+
+Below is the detailed information about the vulnerabilities
+
+<% if (audit.summary.critical) { %>
+<%- include('./detail.ejs', {type:'critical'}); %>
+<% } %>
+<% if (audit.summary.high) { %>
+<%- include('./detail.ejs', {type:'high'}); %>
+<% } %>
+<% if (audit.summary.moderate) { %>
+<%- include('./detail.ejs', {type:'moderate'}); %>
+<% } %>
+<% if (audit.summary.low) { %>
+<%- include('./detail.ejs', {type:'low'}); %> 
+<% } %>

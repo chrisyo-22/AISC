@@ -1,0 +1,8 @@
+# `<%- packageJson.name %>` Audit Result
+
+<% if(audit.summary.total) { %>
+<%- include('./audit.ejs'); %>
+<% } %>
+<% if(audit.summary.total === 0) { %>
+Your project's direct and indirect dependencies have not found any risk vulnerabilities.
+<% } %>
