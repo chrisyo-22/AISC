@@ -10,21 +10,40 @@
 <% }); %>
 
 **Dependency Relationship**：
+
 <% if(item.depChains.length === 0) { %>
 <% if(item.name === packageJson.name) { %>
 Current Project
 <% } else { %>
-- `<%- packageJson.name %>` / <%- item.name %>
+- `<%- packageJson.name || 'Root Project' %>` / `<%- item.name %>`
 <% } %>
 <% } else { %>
 <% item.depChains.forEach((chain) => { %>
 <% if(chain.length === 1 && chain[0] === packageJson.name) { %>
 Current Project
 <% } else { %>
-- `<%- packageJson.name %>` / <%- chain.map(c=>`\`${c}\``).join(' / ') %>
+- `<%- packageJson.name || 'Root Project' %>` / <%- chain.map(c=>`\`${c}\``).join(' / ') %>
 <% } %>
-  <% }); %>
-  <% } %>
+<% }); %>
+
+**Dependency Graph**：
+
+```mermaid
+flowchart LR
+<% item.depChains.forEach((chain, idx) => { -%>
+<% if(chain.length > 0) { -%>
+<% const fullChain = [packageJson.name || 'Root'].concat(chain); -%>
+<% if(chain[chain.length - 1] !== item.name) fullChain.push(item.name); -%>
+<% fullChain.forEach((node, nodeIdx) => { -%>
+<% if(nodeIdx < fullChain.length - 1) { -%>
+    N<%- idx %>_<%- nodeIdx %>[<%- node %>] --> N<%- idx %>_<%- nodeIdx + 1 %>[<%- fullChain[nodeIdx + 1] %>]
+<% } -%>
+<% }); -%>
+    style N<%- idx %>_<%- fullChain.length - 1 %> fill:#ff6b6b,stroke:#c92a2a,stroke-width:3px
+<% } -%>
+<% }); -%>
+```
+<% } %>
 
 **Vulnerable Package Directory**：
 <% item.nodes.forEach((path) => { %>

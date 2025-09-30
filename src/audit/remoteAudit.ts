@@ -1,6 +1,6 @@
 const URL = "https://registry.npmjs.org/-/npm/v1/security/audits";
 
-export async function remoteAudit(packageName, packageVersion) {
+export async function remoteAudit(packageName: string, packageVersion: string): Promise<any> {
     const body = {
         name: 'example-audit',
         version: '1.0.0',

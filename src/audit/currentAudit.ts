@@ -1,5 +1,8 @@
 import { remoteAudit } from './remoteAudit.js';
-const severityLevelsMap = {
+
+type SeverityLevel = 'info' | 'low' | 'moderate' | 'high' | 'critical';
+
+const severityLevelsMap: Record<SeverityLevel, number> = {
   info: 0,
   low: 1,
   moderate: 2,
@@ -7,8 +10,18 @@ const severityLevelsMap = {
   critical: 4,
 };
 
+interface Advisory {
+  id: number;
+  title: string;
+  url: string;
+  severity: SeverityLevel;
+  cwe: string;
+  cvss: any;
+  vulnerable_versions: string;
+}
+
 // add the current project's audit result
-export async function currentAudit(name, version) {
+export async function currentAudit(name: string, version: string): Promise<any | null> {
   // 1. call remoteAudit function to get audit result
   const auditResult = await remoteAudit(name, version);
 
@@ -19,14 +32,14 @@ export async function currentAudit(name, version) {
   ) {
     return null;
   }
-  const result = {
+  const result: any = {
     name,
     range: version,
     nodes: ['.'],
     depChains: [],
   };
-  const advisories = Object.values(auditResult.advisories);
-  let maxSeverity = 'info';
+  const advisories: Advisory[] = Object.values(auditResult.advisories);
+  let maxSeverity: SeverityLevel = 'info';
   result.problems = advisories.map((advisory) => {
     const problem = {
       source: advisory.id,

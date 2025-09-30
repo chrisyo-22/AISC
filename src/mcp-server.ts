@@ -27,12 +27,12 @@ server.registerTool(
         ),
     },
   },
-  async ({ projectRoot, savePath }) => {
+  async ({ projectRoot, savePath }: { projectRoot: string; savePath: string }) => {
     await auditPackage(projectRoot, savePath);
     return {
       content: [
         {
-          type: 'text',
+          type: 'text' as const,
           text: `Audit completed, the result has been saved to: ${savePath}`,
         },
       ],
@@ -43,10 +43,3 @@ server.registerTool(
 
 const transport = new StdioServerTransport();
 server.connect(transport);
-
-
-
-
-
-
-

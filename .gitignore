@@ -1,1 +1,7 @@
 node_modules/
+dist/
+work/
+result/
+*.log
+*.tsbuildinfo
+.DS_Store

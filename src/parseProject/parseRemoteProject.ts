@@ -1,4 +1,6 @@
-function parseGithubUrl(url) {
+import type { GitHubInfo, PackageJson } from '../types.js';
+
+function parseGithubUrl(url: string): GitHubInfo {
     try {
 
         const parsedUrl = new URL(url);
@@ -31,21 +33,21 @@ function parseGithubUrl(url) {
 
 
 
-async function getPackageJsonUrl(gitInfo) {
+async function getPackageJsonUrl(gitInfo: GitHubInfo): Promise<string> {
     let { owner, repo, path } = gitInfo;
     if (path.startsWith('/tree/')) {
         const pathParts = path.split('/').filter(Boolean);
         path = `tags/${pathParts[1]}`;
     } else {
         const url = `https://api.github.com/repos/${owner}/${repo}`;
-        const info = await fetch(url).then((res) => res.json());
+        const info: any = await fetch(url).then((res) => res.json());
         path = `heads/${info.default_branch}`;
     }
     return `https://raw.githubusercontent.com/${owner}/${repo}/${path}/package.json`;
 }
 
 
-export async function parseRemoteProject(githubUrl) {
+export async function parseRemoteProject(githubUrl: string): Promise<PackageJson> {
     try {
         // Parse the GitHub URL to extract owner, repo, and path
         const gitInfo = parseGithubUrl(githubUrl);

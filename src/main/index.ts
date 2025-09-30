@@ -1,4 +1,4 @@
-import { createWorkDir, deleteWorkDir } from '../workDir/index.js';
+import { createWorkDir } from '../workDir/index.js';
 import { parseProject } from '../parseProject/index.js';
 import { auditPackage } from '../entry/index.js';
 
@@ -6,11 +6,11 @@ import { auditPackage } from '../entry/index.js';
  * Audit the project itself and all its direct and indirect dependencies
  * @param {string} projectRoot project root directory, can be the path of local project or the URL of remote project
  */
-export async function auditProject(projectRoot) {
+export async function auditProject(projectRoot: string): Promise<void> {
   // 1. create work directory
-  const workDir = await createWorkDir();
+  const _workDir = await createWorkDir();
   // 2. parse project's package.json file
-  const packageJSON = await parseProject(projectRoot);
+  const _packageJSON = await parseProject(projectRoot);
   // 3. audit project
   await auditPackage(projectRoot, '../result/audit.md');
   // 3. write to work directory

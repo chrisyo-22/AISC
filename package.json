@@ -1,18 +1,29 @@
 {
   "name": "mcp-audit",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Frontend Engineer Security Audit Service - MCP Server",
+  "main": "dist/mcp-server.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc && npm run copy-templates",
+    "copy-templates": "node -e \"require('fs').cpSync('src/render/template', 'dist/render/template', {recursive: true})\"",
+    "start": "node dist/mcp-server.js",
+    "dev": "tsx src/mcp-server.ts",
+    "clean": "node -e \"require('fs').rmSync('dist', {recursive: true, force: true})\"",
+    "rebuild": "npm run clean && npm run build"
   },
-  "keywords": [],
+  "keywords": ["mcp", "security", "audit", "npm", "typescript"],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.17.4",
     "ejs": "^3.1.10",
     "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@types/ejs": "^3.1.5",
+    "@types/node": "^24.6.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.2"
   }
 }

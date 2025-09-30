@@ -1,21 +1,27 @@
+interface Node {
+  name: string;
+  effects?: string[];
+  [key: string]: any;
+}
+
 /**
  * Given a node in the graph, get all chains from the node's dependencies to the end node
  * Note: The graph may contain cycles. When encountering a cycle, the node at the cycle is directly used as the end node
  * @param {Node} node
- * @returns {Array<Set<string>>} Return all dependency chains, each chain is a string set, each string is a node name
+ * @returns {Array<string[]>} Return all dependency chains, each chain is a string array, each string is a node name
  */
-export function getDepChains(node, globalNodeMap) {
+export function getDepChains(node: Node, globalNodeMap: Record<string, Node>): string[][] {
     // store all found dependency chains
-    const chains = [];
+    const chains: string[][] = [];
   
     // current DFS path (used to detect cycles)
-    const currentPath = [];
+    const currentPath: string[] = [];
   
     /**
      * Depth-first search function
      * @param {Node} currentNode - the current node being processed
      */
-    function dfs(currentNode) {
+    function dfs(currentNode: Node | undefined) {
       if (!currentNode) return;
   
       // check if a cycle is formed (the current node is already in the path)
@@ -45,4 +51,3 @@ export function getDepChains(node, globalNodeMap) {
   
     return chains;
   }
-  
