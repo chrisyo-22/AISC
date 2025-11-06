@@ -580,15 +580,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-## 👤 Author
-
-**Frontend Architect**
-
-- GitHub: [@yourusername](https://github.com/yourusername)
-- Email: your.email@example.com
-
----
-
 ## 🙏 Acknowledgments
 
 - [Model Context Protocol](https://modelcontextprotocol.io/) - MCP Server SDK
@@ -596,13 +587,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Mermaid](https://mermaid.js.org/) - Diagram generation
 - [EJS](https://ejs.co/) - Template engine
 
----
-
-## 📞 Support
-
-- 📧 Email: support@aisc.dev
-- 💬 Discord: [Join our community](https://discord.gg/aisc)
-- 🐛 Issues: [GitHub Issues](https://github.com/yourusername/SecurityCheck/issues)
 
 ---
 
